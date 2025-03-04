@@ -35,7 +35,7 @@ struct ContentView: View {
                     headerSection
                     segmentedControlSection
                     nextShiftCard
-                    WeekOverviewCard()
+                    OverviewCard(timeFrame: selectedOption)
                     CollapsibleQuote(quote: retailQuotes.randomElement() ?? "No quote today")
                    
                 }
@@ -123,7 +123,21 @@ struct ContentView: View {
     }
 }
 
-struct WeekOverviewCard: View {
+struct OverviewCard: View {
+    let timeFrame: String;
+    var timeframeLabel: String {
+        switch timeFrame {
+           case "Upcoming":
+               return "Upcoming Overview"
+           case "This Week":
+               return "This Week's Overview"
+           case "This Month":
+               return "This Month's Overview"
+           default:
+               return "Overview"
+           }
+       }
+    
     let totalShifts = 5
     let completedShifts = 3
     let totalHours = 32.5
@@ -137,7 +151,7 @@ struct WeekOverviewCard: View {
         VStack(alignment: .leading, spacing: 20) {
             // Header with completion status
             HStack {
-                Text("This Week's Overview")
+                Text(timeframeLabel)
                     .font(.title3)
                     .fontWeight(.bold)
                 Spacer()
